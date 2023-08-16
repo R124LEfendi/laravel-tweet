@@ -21,7 +21,12 @@
 
                         <h1>{{ $tweet->user->email }}</h1>
                         <p>{{ $tweet->content }}</p>
-                        <div>{{ $tweet->created_at->diffForHumans() }}</div>
+                        <div>
+                            <a href="{{ route('tweets.editor', $tweet->id) }}">edit</a>
+                            <span>
+                                {{ $tweet->created_at->diffForHumans() }}
+                            </span>
+                        </div>
                     </div>
                 @endforeach
             </div>

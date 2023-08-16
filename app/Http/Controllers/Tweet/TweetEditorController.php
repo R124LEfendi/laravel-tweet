@@ -12,7 +12,7 @@ class TweetEditorController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(): View
+    public function __invoke($id): View
     {
         return view('tweets.editor', [
             'tweet' => Tweet::find($id)

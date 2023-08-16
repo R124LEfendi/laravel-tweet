@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimelineController;
+use App\Http\Controllers\Tweet\TweetEditorController;
 use App\Http\Controllers\Tweet\TweetStoreController;
+use App\Http\Controllers\Tweet\TweetUpdateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +25,10 @@ Route::get('/', function () {
 Route::get('/timeline', TimelineController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('tweets', TweetStoreController::class)->name('tweets.store');
+
+Route::get('/tweets/{id}/edit', TweetEditorController::class)->name('tweets.editor');
+
+Route::put('/tweets/{id}/', TweetUpdateController::class)->name('tweets.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
