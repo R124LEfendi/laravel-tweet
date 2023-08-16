@@ -17,22 +17,29 @@
 
             <div class="card my-4 bg-white">
                 @foreach ($tweets as $tweet)
-                    @can('update', $tweet)
-                        <div class="card-body">
-
-
-
-
-                            <h1>{{ $tweet->user->email }}</h1>
-                            <p>{{ $tweet->content }}</p>
-                            <div>
+                    <div class="card-body">
+                        <h1>{{ $tweet->user->email }}</h1>
+                        <p>{{ $tweet->content }}</p>
+                        <div>
+                            @can('update', $tweet)
                                 <a href="{{ route('tweets.editor', $tweet->id) }}">edit</a>
                                 <span>
                                     {{ $tweet->created_at->diffForHumans() }}
                                 </span>
-                            </div>
+                            @endcan
+
+                            @can('delete', $tweet)
+                                <form action="{{ route('tweets.destroy', $tweet->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">
+                                        delete
+                                    </button>
+
+                                </form>
+                            @endcan
                         </div>
-                    @endcan
+                    </div>
                 @endforeach
             </div>
 
