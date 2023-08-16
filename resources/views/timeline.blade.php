@@ -17,17 +17,22 @@
 
             <div class="card my-4 bg-white">
                 @foreach ($tweets as $tweet)
-                    <div class="card-body">
+                    @can('update', $tweet)
+                        <div class="card-body">
 
-                        <h1>{{ $tweet->user->email }}</h1>
-                        <p>{{ $tweet->content }}</p>
-                        <div>
-                            <a href="{{ route('tweets.editor', $tweet->id) }}">edit</a>
-                            <span>
-                                {{ $tweet->created_at->diffForHumans() }}
-                            </span>
+
+
+
+                            <h1>{{ $tweet->user->email }}</h1>
+                            <p>{{ $tweet->content }}</p>
+                            <div>
+                                <a href="{{ route('tweets.editor', $tweet->id) }}">edit</a>
+                                <span>
+                                    {{ $tweet->created_at->diffForHumans() }}
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    @endcan
                 @endforeach
             </div>
 
