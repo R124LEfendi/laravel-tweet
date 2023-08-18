@@ -8,6 +8,8 @@ use App\Models\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Laravel\Scout\Searchable;
+
 
 class TimelineController extends Controller
 {
@@ -15,15 +17,9 @@ class TimelineController extends Controller
      * Handle the incoming request.
      */
 
-    public function __invoke(): View
+    public function __invoke(request $request): View
     {
-        $tweets = Tweet::orderBy('created_at', 'desc')->paginate(6);
+        $tweets = Tweet::search($request->input('search'))->paginate(10);
         return view('timeline', ['tweets' => $tweets]);
     }
-    // public function __invoke(): View
-    // {
-    //     return view('timeline', [
-    //         'tweets' => Tweet::latest('id')->get(),
-    //     ]);
-    // }
 }

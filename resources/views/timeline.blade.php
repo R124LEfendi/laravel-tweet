@@ -3,6 +3,20 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
+        <form action="{{ route('tweets.search') }}" method="get">
+            @csrf
+            <div class="input-group">
+                <input type="search" name="search" placeholder="Search…" class="input input-bordered" />
+                <button type="submit" class="btn btn-square">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </div>
+        </form>
+
     </x-slot>
 
     <div class="py-12">
@@ -23,11 +37,10 @@
                         <div>
                             @can('update', $tweet)
                                 <a href="{{ route('tweets.editor', $tweet->id) }}">edit</a>
-                                <span>
-                                    {{ $tweet->created_at->diffForHumans() }}
-                                </span>
                             @endcan
-
+                            <span>
+                                {{ $tweet->created_at->diffForHumans() }}
+                            </span>
                             @can('delete', $tweet)
                                 <form action="{{ route('tweets.destroy', $tweet->id) }}" method="post">
                                     @csrf
@@ -42,7 +55,7 @@
                     </div>
                 @endforeach
             </div>
-            {{ $tweets->links() }}
+            {{ $tweets->onEachSide(1)->links() }}
         </div>
     </div>
 </x-app-layout>
