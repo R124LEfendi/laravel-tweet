@@ -42,7 +42,7 @@
                     </div>
                 @endforeach
             </div>
-
+            {{ $tweets->links() }}
         </div>
     </div>
 </x-app-layout>
